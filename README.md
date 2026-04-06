@@ -47,6 +47,18 @@ open dist/app.app
 
 > На `Run workflow` CI также коммитит свежий `prebuilt/app-macos.zip` обратно в репозиторий.
 
+## Релиз из `app-macos.zip`
+
+Workflow также умеет публиковать релиз автоматически:
+
+1. Создай и запушь тег формата `v*`, например:
+   ```bash
+   git tag v1.0.0
+   git push origin v1.0.0
+   ```
+2. На пуш тега CI соберёт `dist/app-macos.zip`.
+3. Этот архив будет приложен к GitHub Release для тега.
+
 ## Технически
 
 - `AppKit` + `NSApplication` для фонового desktop-приложения.
