@@ -2,16 +2,16 @@
 import PackageDescription
 
 let package = Package(
-    name: "CatgirlDockApp",
+    name: "app",
     platforms: [
         .macOS(.v13)
     ],
     products: [
-        .executable(name: "CatgirlDockApp", targets: ["CatgirlDockApp"])
+        .executable(name: "app", targets: ["app"])
     ],
     targets: [
         .executableTarget(
-            name: "CatgirlDockApp",
+            name: "app",
             path: "Sources"
         )
     ]
