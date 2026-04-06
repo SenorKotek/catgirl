@@ -1,4 +1,4 @@
-# Catgirl Dock App (macOS)
+# app (macOS)
 
 Мини‑приложение для macOS: в Dock появляется анимированная ASCII/ANSI‑иконка кошкодевочки.
 
@@ -11,7 +11,7 @@
 ## Запуск
 
 ```bash
-swift run
+swift run app
 ```
 
 После старта приложение появится в Dock. Для глобального отслеживания клавиатуры macOS может запросить разрешения в `Privacy & Security`.
