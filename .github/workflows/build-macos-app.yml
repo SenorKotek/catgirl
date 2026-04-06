@@ -1,0 +1,45 @@
+name: Build macOS app bundle
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build .app bundle
+        run: ./scripts/build-app.sh
+
+      - name: Zip bundle
+        run: |
+          cd dist
+          ditto -c -k --sequesterRsrc --keepParent app.app app-macos.zip
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-macos
+          path: dist/app-macos.zip
+          if-no-files-found: error
+
+      - name: Commit zip into repository
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          mkdir -p prebuilt
+          cp dist/app-macos.zip prebuilt/app-macos.zip
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add prebuilt/app-macos.zip
+          git diff --cached --quiet && exit 0
+          git commit -m "chore: update prebuilt macOS app"
+          git push
